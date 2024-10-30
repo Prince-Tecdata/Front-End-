@@ -1,0 +1,132 @@
+<mat-card-title class="title">DASHBOARD</mat-card-title>
+<div class="Home">
+    <mat-card
+        style="margin: 1%;box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="">Product Wise</label>
+                                    <select class="form-select">
+                                        <option value="">--Select--</option>
+                                        <option value="">GCCV</option>
+                                        <option value="">PCCV</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="">Insurer Wise</label>
+                                    <select class="form-select">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="">From Date</label>
+                                    <input [(ngModel)]="FromDate" [ngModelOptions]="{standalone: true}"
+                                        class="form-control" type="date">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="">To Date</label>
+                                    <input [(ngModel)]="ToDate" [ngModelOptions]="{standalone: true}"
+                                        class="form-control" type="date">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-1 col-sm-6">
+                                <div class="mb-3">
+                                    <label style="visibility: hidden;" for="">Search</label>
+                                    <button mat-raised-button color="primary"><mat-icon>search</mat-icon>
+                                        Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <!-- <div class="Home" style=" "> -->
+    <mat-card
+        style="margin: 1%;box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-card class="Quote">
+                        <mat-card-content class="d-flex flex-row">
+                            <h3>QUOTATION</h3>
+                            <span class="example-spacer"></span>
+                            <h1>0.000</h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="PROPOSAL">
+                        <mat-card-content class="d-flex flex-row">
+                            <h3>PROPOSAL</h3>
+                            <span class="example-spacer"></span>
+                            <h1>0.000</h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="POLICIES">
+                        <mat-card-content class="d-flex flex-row">
+                            <h3>POLICIES</h3>
+                            <span class="example-spacer"></span>
+                             <h1>0.000</h1>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <!-- <div class="row d-flex justify-content-center" style="text-align: center;">
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <mat-card class="Quote">
+                        <mat-card-title style="text-align: center;">QUOTATION</mat-card-title>
+                        <mat-card-content>
+                            <img src="/assets/Dashboard/Privacy policy-bro.svg" alt="QUOTATION Logo">
+                            <div class="modal-footer">
+                                
+                                <button mat-raised-button>0.000</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <mat-card style="margin: 3%;background-color: #FFF6E0;border-radius: 20px;">
+                        <mat-card-title style="text-align: center;">PROPOSAL</mat-card-title>
+                        <mat-card-content>
+                            <img src="/assets/Dashboard/Privacy policy-bro.svg" alt="PROPOSAL Logo">
+                            <div class="modal-footer">
+                                <button mat-raised-button>0.000</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <mat-card style="margin: 3%;background-color: #F2E0F7;border-radius: 20px;">
+                        <mat-card-title style="text-align: center;">POLICIES</mat-card-title>
+                        <mat-card-content>
+                            <img src="/assets/Dashboard/Privacy policy-bro.svg" alt="Policy Logo">
+                            <div class="modal-footer">
+                                <button mat-raised-button>0.000</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="text-align: center ;">Chart</h2>
+                    <canvas id="Barchart">{{Chart}}</canvas>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <!-- </div> -->

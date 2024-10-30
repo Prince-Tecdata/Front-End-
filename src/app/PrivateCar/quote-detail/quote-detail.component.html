@@ -1,0 +1,888 @@
+<div class="Home">
+    <mat-card class="example-box">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <h1 style="text-align: center;color: #e95631;font-family:Robito;margin-top: 1%;font-weight: bold;">
+                        QUOTE NO: {{Quoteno}}</h1>
+                </div>
+            </div>
+        </div>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <div class="container">
+                            <div class="radio_container">
+                                <input disabled [checked]="KYC" type="radio" name="radio1" id="One" value="KYC Details"
+                                    (change)="SelectedTab($event)">
+                                <label class="one" for="One">KYC</label>
+                                <input disabled [checked]="Personal" type="radio" name="radio1" id="Two" value="Personal Details"
+                                    (change)="SelectedTab($event)">
+                                <label class="one" for="Two">Personal</label>
+                                <input disabled [checked]="Vehicle" type="radio" name="radio1" id="Three" value="Vehicle Details"
+                                    (change)="SelectedTab($event)">
+                                <label class="one" for="Three">Vehicle</label>
+                                <input disabled [checked]="Nominee" type="radio" name="radio1" id="Four" value="Nominee Details"
+                                    (change)="SelectedTab($event)">
+                                <label class="one" for="Four">Nominee</label>
+                                <input disabled [checked]="FileUpload" type="radio" name="radio1" id="five" value="File Upload"
+                                    (change)="SelectedTab($event)">
+                                <label class="one" for="five">File Upload</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" id="hidetab1">
+                <div class="col-md-12">
+                    <form [formGroup]="QuotenoDetail">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="text">ID Type<span style="color: red;"> *</span></label>
+                                    <select [ngClass]="{ 'is-invalid': submitted && f['IDType'].errors }"
+                                        formControlName="IDType" (change)="UpdateIdValue()" class="form-select">
+                                        <option value="" selected>--Select--</option>
+                                        <option value="PAN">PAN Card</option>
+                                        <option value="CIN">CIN</option>
+                                        <option value="Voter Id">Voter Id</option>
+                                        <option value="AADHAAR Card">Aadhar Card</option>
+                                        <option value="Driving License">Driving License</option>
+                                        <option value="CKYC Number">CKYC Number</option>
+                                        <option value="Passport">Passport</option>
+                                    </select>
+                                    <div *ngIf=" submitted && f['IDType'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['IDType'].errors['required']">Field Must Be Select the
+                                            IDType
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.IdType !== '' && this.IdType !== 'Passport'">
+                                <div class="mb-3">
+                                    <label class="text">{{IdType}}<span style="color: red;"> *</span></label>
+                                    <input (keypress)="NumberLength($event)" formControlName="IDTypeValue"
+                                        [ngClass]="{ 'is-invalid': submitted && f['IDTypeValue'].errors }"
+                                        style="text-transform: uppercase;" type="text" class="form-control">
+                                    <div *ngIf="submitted && f['IDTypeValue'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['IDTypeValue'].errors['required']">Field Must Be Enter the
+                                            {{IdType}} No
+                                        </div>
+                                        <div *ngIf="!f['IDTypeValue'].errors['minLength']">Invalid {{IdType}} No
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="text">Full Name<span style="color: red;"> *</span></label>
+                                    <input style="text-transform: uppercase;" type="text" class="form-control"
+                                        formControlName="FullName"
+                                        [ngClass]="{ 'is-invalid': submitted && f['FullName'].errors }">
+                                    <div *ngIf=" submitted && f['FullName'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['FullName'].errors['required']">Field Must Be Select the
+                                            Full Name
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="text">Gender<span style="color: red;"> *</span></label>
+                                    <select formControlName="Gender"
+                                        [ngClass]="{ 'is-invalid': submitted && f['Gender'].errors }"
+                                        class="form-select">
+                                        <option value="">--Select--</option>
+                                        <option value="Male">MALE</option>
+                                        <option value="Female">FEMALE</option>
+                                        <option value="Others">OTHERS</option>
+                                    </select>
+                                    <div *ngIf=" submitted && f['Gender'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['Gender'].errors['required']">Field Must Be Select the
+                                            Gender
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="text">Date Of Birth<span style="color: red;"> *</span></label>
+                                    <input [max]="MaxDate" (change)="Datecheck($event)" type="date" class="form-control"
+                                        formControlName="DateOfBirth"
+                                        [ngClass]="{ 'is-invalid': submitted && f['DateOfBirth'].errors }">
+                                    <div *ngIf=" submitted && f['DateOfBirth'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['DateOfBirth'].errors['required']">Field Must Be Select the
+                                            Date Of Birth
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="text">Upload File</label>
+                                    <input type="file" class="form-control" formControlName="FileName">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <mat-slide-toggle class="Update"  color="primary" formControlName="PEP">PEP
+                                        (Politically Exposed
+                                        Person)</mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row hidetab2" id="hidetab2">
+                <form [formGroup]="QuotenoDetailPage2">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Title<span style="color: red;"> *</span></label>
+                                <select formControlName="title" class="form-select" aria-label="select example"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['title'].errors }">
+                                    <option value="">--select--</option>
+                                    <option value="Mr">MR</option>
+                                    <option value="Mrs">MRS</option>
+                                    <option value="Ms">MS</option>
+                                    <option value="Dr">DR</option>
+                                    <option value="CAPT">CAPT</option>
+                                    <option value="CAPT">PROF</option>
+                                    <option value="CAPT">MAJOR</option>
+                                    <option value="CAPT">COL</option>
+                                </select>
+                                <div *ngIf=" submitted2 && f1['title'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['title'].errors['required']">Field Must Be Select the
+                                        title
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">First Name<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['First_Name'].errors }"
+                                    formControlName="First_Name" />
+                                <div *ngIf=" submitted2 && f1['First_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['First_Name'].errors['required']">Field Must Be Enter the
+                                        First Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Last Name<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Last_Name'].errors }"
+                                    formControlName="Last_Name" />
+                                <div *ngIf=" submitted2 && f1['Last_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Last_Name'].errors['required']">Field Must Be Enter the
+                                        Last Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Date Of Birth<span style="color: red;"> *</span></label>
+                                <input type="date" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['DateOfBirth'].errors }"
+                                    formControlName="DateOfBirth" />
+                                <div *ngIf=" submitted2 && f1['DateOfBirth'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['DateOfBirth'].errors['required']">Field Must Be Select the
+                                        Date Of Birth
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 1<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Address1'].errors }"
+                                    formControlName="Address1" />
+                                <div *ngIf=" submitted2 && f1['Address1'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Address1'].errors['required']">Field Must Be Enter the
+                                        Address 1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 2<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Address2'].errors }"
+                                    formControlName="Address2" />
+                                <div *ngIf=" submitted2 && f1['Address2'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Address2'].errors['required']">Field Must Be Enter the
+                                        Address 2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 3<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Address3'].errors }"
+                                    formControlName="Address3" />
+                                <div *ngIf=" submitted2 && f1['Address3'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Address3'].errors['required']">Field Must Be Enter the
+                                        Address 3
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">City 2<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['City2'].errors }"
+                                    formControlName="City2" />
+                                <div *ngIf=" submitted2 && f1['City2'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['City2'].errors['required']">Field Must Be Enter the
+                                        City 2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">State<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['State'].errors }"
+                                    formControlName="State" />
+                                <div *ngIf=" submitted2 && f1['State'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['State'].errors['required']">Field Must Be Enter the
+                                        State
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">PIN Code<span style="color: red;"> *</span></label>
+                                <input (keypress)="NumberOnly($event)" (keypress)="MinLength($event)" type="text"
+                                    style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Pincode'].errors }"
+                                    formControlName="Pincode" />
+                                <div *ngIf=" submitted2 && f1['Pincode'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Pincode'].errors['required']">Field Must Be Enter the
+                                        Pin code
+                                    </div>
+                                    <div *ngIf="!f1['Pincode'].errors['minLength']">Invalid Pin code
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Mobile Number<span style="color: red;"> *</span></label>
+                                <input (keypress)="NumberOnly($event)" type="text" style="text-transform: uppercase;"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Mobile_Number'].errors }"
+                                    formControlName="Mobile_Number" />
+                                <div *ngIf=" submitted2 && f1['Mobile_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Mobile_Number'].errors['required']">Field Must Be Enter the
+                                        Mobile Number
+                                    </div>
+                                    <div *ngIf="!f1['Mobile_Number'].errors['minLength']">Invalid Mobile Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Alternate Number<span style="color: red;"> *</span></label>
+                                <input (keypress)="NumberOnly($event)" (change)="SameNumberCheck($event)" type="text" style="text-transform: uppercase;"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Alternate_Number'].errors }"
+                                    formControlName="Alternate_Number" />
+                                <div *ngIf=" submitted2 && f1['Alternate_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Alternate_Number'].errors['required']">Field Must Be Enter the
+                                        Alternate Number
+                                    </div>
+                                    <!-- <div *ngIf="!f1['Pincode'].errors['minLength']">Invalid Alternate Number
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Email<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: lowercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Email'].errors }"
+                                    formControlName="Email" />
+                                <div *ngIf=" submitted2 && f1['Email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Email'].errors['required']">Field Must Be Enter the Email
+                                        Address
+                                    </div>
+                                    <div *ngIf="f1['Email'].errors['email']">Invalid Email Address
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Pan No<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Pan_No'].errors }"
+                                    formControlName="Pan_No" />
+                                <div *ngIf=" submitted2 && f1['Pan_No'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Pan_No'].errors['required']">Field Must Be Enter the
+                                        Pan No
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Occupation<span style="color: red;"> *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['Occupation'].errors }"
+                                    formControlName="Occupation">
+                                    <option value="" selected>--Selected--</option>
+                                    <option value="Business / Sales Profession">Business / Sales Profession</option>
+                                    <option value="Corporate Executive">Corporate Executive</option>
+                                    <option value="Central / State Government Employee">Central / State Government
+                                        Employee</option>
+                                    <option value="Engineering Profession">Engineering Profession</option>
+                                    <option value="Financial Services Profession">Financial Services Profession</option>
+                                    <option value="Heads of Government">Heads of Government</option>
+                                    <option value="Heads of State">Heads of State</option>
+                                    <option value="Home Maker / Housewife">Home Maker / Housewife</option>
+                                    <option value="Medical Profession">Medical Profession</option>
+                                    <option value="IT Profession">IT Profession</option>
+                                    <option value="Armed Forces">Armed Forces</option>
+                                    <option value="Musician / Artist">Musician / Artist</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Political Party Official">Political Party Official</option>
+                                    <option value="Politician">Politician</option>
+                                    <option value="Senior Government Official">Senior Government Official</option>
+                                    <option value="Senior Military Official">Senior Military Official</option>
+                                    <option value="Sports Person"> Sports Person</option>
+                                    <option value="State-owned Corporation Official">State-owned Corporation Official
+                                    </option>
+                                    <option value="Student">Student</option>
+                                    <option value="Teaching Profession">Teaching Profession</option>
+                                </select>
+                                <div *ngIf=" submitted2 && f1['Occupation'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Occupation'].errors['required']">Field Must Be Select the
+                                        Occupation
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle (change)="UpdateSameAddress($event)" class="Update"
+                                    color="primary">LIs your Registration Address
+                                    Same as Communication Confirm Address</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 1<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnAddress1'].errors }"
+                                    formControlName="SameAsOnAddress1" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnAddress1'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnAddress1'].errors['required']">Field Must Be Enter the
+                                        Address 1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 2<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnAddress2'].errors }"
+                                    formControlName="SameAsOnAddress2" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnAddress2'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnAddress2'].errors['required']">Field Must Be Enter the
+                                        Address 2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Address 3<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnAddress3'].errors }"
+                                    formControlName="SameAsOnAddress3" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnAddress3'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnAddress3'].errors['required']">Field Must Be Enter the
+                                        Address 3
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">City 1<span style="color: red;"> *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnCity1'].errors }"
+                                    formControlName="SameAsOnCity1">
+                                    <option value="" selected>--Selected--</option>
+                                    <option value="Business / Sales Profession">Business / Sales Profession</option>
+                                    <option value="Corporate Executive">Corporate Executive</option>
+                                    <option value="Central / State Government Employee">Central / State Government
+                                        Employee</option>
+                                    <option value="Engineering Profession">Engineering Profession</option>
+                                    <option value="Financial Services Profession">Financial Services Profession</option>
+                                    <option value="Heads of Government">Heads of Government</option>
+                                    <option value="Heads of State">Heads of State</option>
+                                    <option value="Home Maker / Housewife">Home Maker / Housewife</option>
+                                    <option value="Medical Profession">Medical Profession</option>
+                                    <option value="IT Profession">IT Profession</option>
+                                    <option value="Armed Forces">Armed Forces</option>
+                                    <option value="Musician / Artist">Musician / Artist</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Political Party Official">Political Party Official</option>
+                                    <option value="Politician">Politician</option>
+                                    <option value="Senior Government Official">Senior Government Official</option>
+                                    <option value="Senior Military Official">Senior Military Official</option>
+                                    <option value="Sports Person"> Sports Person</option>
+                                    <option value="State-owned Corporation Official">State-owned Corporation Official
+                                    </option>
+                                    <option value="Student">Student</option>
+                                    <option value="Teaching Profession">Teaching Profession</option>
+                                </select>
+                                <div *ngIf=" submitted2 && f1['SameAsOnCity1'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnCity1'].errors['required']">Field Must Be Select the
+                                        City 1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">City 2<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnCity2'].errors }"
+                                    formControlName="SameAsOnCity2" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnCity2'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnCity2'].errors['required']">Field Must Be Enter the
+                                        City 2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">State<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnState'].errors }"
+                                    formControlName="SameAsOnState" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnState'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnState'].errors['required']">Field Must Be Enter the
+                                        State
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">PIN Code<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted2 && f1['SameAsOnPincode'].errors }"
+                                    formControlName="SameAsOnPincode" />
+                                <div *ngIf=" submitted2 && f1['SameAsOnPincode'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['SameAsOnPincode'].errors['required']">Field Must Be Enter the
+                                        Pin code
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="row hidetab3" id="hidetab3">
+                <form [formGroup]="QuotenoDetailPage3">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Registration Number<span style="color: red;"> *</span></label>
+                                <input readonly type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Registration_Number'].errors }"
+                                    formControlName="Registration_Number" />
+                                <div *ngIf=" submitted3 && f2['Registration_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Registration_Number'].errors['required']">Field Must Be Enter the
+                                        Registration Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Make<span style="color: red;"> *</span></label>
+                                <input readonly type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Make'].errors }"
+                                    formControlName="Make" />
+                                <div *ngIf=" submitted3 && f2['Make'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Make'].errors['required']">Field Must Be Enter the
+                                        Make
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Model<span style="color: red;"> *</span></label>
+                                <input readonly type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Model'].errors }"
+                                    formControlName="Model" />
+                                <div *ngIf=" submitted3 && f2['Model'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Model'].errors['required']">Field Must Be Enter the
+                                        Registration Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Sub Model<span style="color: red;"> *</span></label>
+                                <input readonly type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Sub_Model'].errors }"
+                                    formControlName="Sub_Model" />
+                                <div *ngIf=" submitted3 && f2['Sub_Model'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Sub_Model'].errors['required']">Field Must Be Enter the
+                                        Sub Model
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Engine Number<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Engine_Number'].errors }"
+                                    formControlName="Engine_Number" />
+                                <div *ngIf=" submitted3 && f2['Engine_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Engine_Number'].errors['required']">Field Must Be Enter the
+                                        Engine Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Chassis Number<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Chassis_Number'].errors }"
+                                    formControlName="Chassis_Number" />
+                                <div *ngIf=" submitted3 && f2['Chassis_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Chassis_Number'].errors['required']">Field Must Be Enter the
+                                        Chassis Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Previous Insurer Name<span style="color: red;"> *</span></label>
+                                <input readonly type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Previous_Insurer_Name'].errors }"
+                                    formControlName="Previous_Insurer_Name" />
+                                <div *ngIf=" submitted3 && f2['Previous_Insurer_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['Previous_Insurer_Name'].errors['required']">Field Must Be Enter the
+                                        Previous Insurer Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Previous Policy Number<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Previous_Policy_Number'].errors }"
+                                    formControlName="Previous_Policy_Number" />
+                                <div *ngIf=" submitted3 && f2['Previous_Policy_Number'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f2['Previous_Policy_Number'].errors['required']">Field Must Be Enter the
+                                        Previous Policy Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Previous Policy Expiry Date<span style="color: red;">
+                                        *</span></label>
+                                <input type="date" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['Previous_Policy_Expiry_Date'].errors }"
+                                    formControlName="Previous_Policy_Expiry_Date" />
+                                <div *ngIf=" submitted3 && f2['Previous_Policy_Expiry_Date'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f2['Previous_Policy_Expiry_Date'].errors['required']">Field Must Be
+                                        Select the
+                                        Previous Policy Expiry Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle class="Update" color="primary" formControlName="PUC"
+                                    (change)="PUCCertificateDetail($event)">PUC</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.PUCDetail === true">
+                            <div class="mb-3">
+                                <label class="text">PUC Certificate Number<span style="color: red;">
+                                        *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['PUC_Certificate_Number'].errors }"
+                                    formControlName="PUC_Certificate_Number" />
+                                <div *ngIf=" submitted3 && f2['PUC_Certificate_Number'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f2['PUC_Certificate_Number'].errors['required']">Field Must Be Enter the
+                                        PUC Certificate Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.PUCDetail === true">
+                            <div class="mb-3">
+                                <label class="text">PUC Expiry Date<span style="color: red;">
+                                        *</span></label>
+                                <input type="date" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted3 && f2['PUC_Expiry_Date'].errors }"
+                                    formControlName="PUC_Expiry_Date" />
+                                <div *ngIf=" submitted3 && f2['PUC_Expiry_Date'].errors" class="invalid-feedback">
+                                    <div *ngIf="f2['PUC_Expiry_Date'].errors['required']">Field Must Be Select the
+                                        PUC Expiry Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row hidetab4" id="hidetab4">
+                <form [formGroup]="QuotenoDetailPage4">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Nominee Name<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Nominee_Name'].errors }"
+                                    formControlName="Nominee_Name" />
+                                <div *ngIf=" submitted4 && f4['Nominee_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Nominee_Name'].errors['required']">Field Must Be Enter
+                                        the
+                                        Nominee Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Nominee DOB<span style="color: red;"> *</span></label>
+                                <input type="date" (change)="GuardianDetail($event)" style="text-transform: uppercase;"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Nominee_DOB'].errors }"
+                                    formControlName="Nominee_DOB" />
+                                <div *ngIf=" submitted4 && f4['Nominee_DOB'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Nominee_DOB'].errors['required']">Field Must Be Select the
+                                        Nominee DOB
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Nominee_Relationship<span style="color: red;"> *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Nominee_Relationship'].errors}"
+                                    formControlName="Nominee_Relationship">
+                                    <option value="" selected>--select--</option>
+                                    <option value="FATHER">FATHER</option>
+                                    <option value="MOTHER">MOTHER</option>
+                                    <option value="BROTHER">BROTHER</option>
+                                    <option value="SISTER">SISTER</option>
+                                    <option value="SPOUSE">SPOUSE</option>
+                                    <option value="SON">SON</option>
+                                    <option value="DAUGHTER">DAUGHTER</option>
+                                </select>
+                                <div *ngIf=" submitted4 && f4['Nominee_Relationship'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Nominee_Relationship'].errors['required']">Field Must Be Select the
+                                        Nominee DOB
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="this.Guard === true">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Guardian Name<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Guardian_Name'].errors }"
+                                    formControlName="Guardian_Name" />
+                                <div *ngIf=" submitted4 && f4['Guardian_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Guardian_Name'].errors['required']">Field Must Be Enter the
+                                        Guardian Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Gurdain DOB<span style="color: red;"> *</span></label>
+                                <input (change)="GuardianAge($event)" type="date" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Gurdain_DOB'].errors }"
+                                    formControlName="Gurdain_DOB" />
+                                <div *ngIf=" submitted4 && f4['Gurdain_DOB'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Gurdain_DOB'].errors['required']">Field Must Be Select the
+                                        Gurdain DOB
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label class="text">Gurdain Relationship<span style="color: red;"> *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Gurdain_Relationship'].errors}"
+                                    formControlName="Gurdain_Relationship">
+                                    <option value="" selected>--select--</option>
+                                    <option value="AUNT">AUNT</option>
+                                    <option value="BROTHER">BROTHER</option>
+                                    <option value="BROTHER-IN-LAW">BROTHER-IN-LAW</option>
+                                    <option value="COUSIN">COUSIN</option>
+                                    <option value="DAUGHTER">DAUGHTER</option>
+                                    <option value="DAUGHTER-IN-LAW">DAUGHTER-IN-LAW</option>
+                                    <option value="FATHER">FATHER</option>
+                                    <option value="FATHER-IN-LAW">FATHER-IN-LAW</option>
+                                    <option value="GRAND DAUGHTER">GRAND DAUGHTER</option>
+                                    <option value="GRAND FATHER">GRAND FATHER</option>
+                                    <option value="GRAND MOTHER">GRAND MOTHER</option>
+                                    <option value="GRAN SON">GRAN SON</option>
+                                    <option value="LEGAL GUARDIAN">LEGAL GUARDIAN</option>
+                                    <option value="MOTHER">MOTHER</option>
+                                    <option value="MOTHER-IN-LAW">MOTHER-IN-LAW</option>
+                                    <option value="NEPHEW">NEPHEW</option>
+                                    <option value="NIECE">NIECE</option>
+                                    <option value="SISTER">SISTER</option>
+                                    <option value="SISTER-IN-LAW">SISTER-IN-LAW</option>
+                                    <option value="SON">SON</option>
+                                    <option value="SON-IN-LAW">SON-IN-LAW</option>
+                                    <option value="SPOUSE">SPOUSE</option>
+                                    <option value="UNCLE">UNCLE</option>
+                                    <option value="WIFE">WIFE</option>
+                                </select>
+                                <div *ngIf=" submitted4 && f4['Gurdain_Relationship'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Gurdain_Relationship'].errors['required']">Field Must Be Select the
+                                        Gurdain Relationship
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle class="Update" color="primary" formControlName="Vehicle_Financed"
+                                    (change)="VehicleFinanced($event)">Is Your Vehicle Financed ?</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="VehicleFinance === true">
+                            <div class="mb-3">
+                                <label class="text">Financier Name<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Financier_Name'].errors }"
+                                    formControlName="Financier_Name" />
+                                <div *ngIf=" submitted4 && f4['Financier_Name'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Financier_Name'].errors['required']">Field Must Be Enter the
+                                        Financier Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="VehicleFinance === true">
+                            <div class="mb-3">
+                                <label class="text">Financier City<span style="color: red;"> *</span></label>
+                                <input type="text" style="text-transform: uppercase;" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted4 && f4['Financier_City'].errors }"
+                                    formControlName="Financier_City" />
+                                <div *ngIf=" submitted4 && f4['Financier_City'].errors" class="invalid-feedback">
+                                    <div *ngIf="f4['Financier_City'].errors['required']">Field Must Be Enter the
+                                        Financier City
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row hidetab5" id="hidetab5">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Invoice copy<span style="color: red;"> *</span></label>
+                                <input (change)="SelectInvoiceFile($event)" class="form-control" type="file" id="formFile" value="Invoice">
+                                <button *ngIf="InvoiceFile" (click)="DownloadInvoiceFile()" style="margin-top: 1%;" mat-raised-button color="primary">Download</button>          
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Previous Policy Copy<span style="color: red;"> *</span></label>
+                                <input (change)="SelectPreviousPolicyFile($event)" class="form-control" type="file" id="formFile">         
+                                <button *ngIf="PreviousPolicyFile" (click)="DownloadPreviousPolicyFile()" style="margin-top: 1%;" mat-raised-button color="primary">Download</button>          
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">RC Book<span style="color: red;"> *</span></label>
+                                <input (change)="SelectRCBookFile($event)" class="form-control" type="file" id="formFile">  
+                                <button *ngIf="RCBookFile" (click)="DownloadRCBookFile()" style="margin-top: 1%;" mat-raised-button color="primary">Download</button>          
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">NCB Confirmation<span style="color: red;"> *</span></label>
+                                <input (change)="SelectNCB_ConfirmationFile($event)"class="form-control" type="file" id="formFile">  
+                                <button *ngIf="NCB_Confirmation" (click)="DownloadNCB_ConfirmationFile()"style="margin-top: 1%;" mat-raised-button color="primary">Download</button>          
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Others<span style="color: red;"> *</span></label>
+                                <input (change)="SelectOtherFile($event)" class="form-control" type="file" id="formFile">  
+                                <button *ngIf="OtherFile" (click)="DownloadOtherFile()" style="margin-top: 1%;" mat-raised-button color="primary">Download</button>          
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button mat-raised-button color="warn" *ngIf="SelectedIndex !== 1" style="margin-right: 1%;"
+                    (click)="GoPreviousPage()">Previous</button>
+                <button type="submit" mat-raised-button color="primary" *ngIf="SelectedIndex !== 5"
+                    (click)="GoNextPage()">Next</button>
+                <button type="submit" mat-raised-button *ngIf="SelectedIndex === 5" color="primary">Save</button>
+            </div>
+
+            <!-- // End -->
+        </mat-card-content>
+    </mat-card>
+</div>

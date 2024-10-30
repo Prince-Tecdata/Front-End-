@@ -1,0 +1,284 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+<div class="Home">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <mat-card style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" appearance="outlined">
+                            <mat-card-content>
+                                <div class="">
+                                    <div class="card shadow-lg bg-body-tertiary">
+                                        <div class="card-body">
+                                            <div class="card-header" style="background-color: #e95631;color: white;">
+                                                <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                                                    Showing Results For
+                                                    <span><i class="fa fa-pencil-square-o" aria-hidden="true"
+                                                            routerLink="/private-car-dashboard/Quote"></i></span>
+                                                </h5>
+                                            </div>
+                                            <br>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary" style="font-size: 20px;">
+                                                HYUNDAI ALCAZAR</h6>
+                                            <div class="row">
+                                                <div class="col">
+                                                    1.5 PLATINIUM (O) DCT 7 STR
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    Registered With MH-12 - PUNE
+                                                </div>
+                                            </div>
+                                            <h6 class="card-title mt-2">Policy Details</h6>
+                                            <div class="row">
+                                                <div class="col">
+                                                    Any Claim Last Year
+                                                </div>
+                                                <div class="col">
+                                                    NO
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    Prev No Claim Bonus
+                                                </div>
+                                                <div class="col">
+                                                    20 %
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    Reg Month & Year
+                                                </div>
+                                                <div class="col">
+                                                    Mar & 2020
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    Prev. Policy Status
+                                                </div>
+                                                <div class="col">
+                                                    Not Expired
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <mat-card style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" appearance="outlined">
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <img src="/assets/GeneralInsurance/sbi-general.png" alt="SBI">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3" style="margin-top: 12%;">
+                                            <span id="updatespan">IDV: ₹</span>
+                                            <strong (click)="UpdateAmout()"><i class="fas fa-edit mx-2"></i></strong>
+                                            <input (keypress)="numberValidate($event)" id="updatedvalue"
+                                                class="updatedvalue" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 2%;">
+                                        <div class="mb-3">
+                                            <button (click)="OpenDialog()" mat-raised-button
+                                                style="background-color: #e95631;color: white;">
+                                                <i class="fas fa-crown"></i> Premium Breakup
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 2%;">
+                                        <div class="mb-3">
+                                            <div class="premium_quote">
+                                                <button (click)="GOTOGouteDetail()" class="btn btn-outline-info">
+                                                    <Strong>₹</Strong>{{0.000| number : '1.3-3'}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 d-md-block">
+                                    <span style="margin-right:1%;" type="button">MIN IDV : ₹ {{0.000| number :
+                                        '1.3-3'}}</span>
+                                    <span type="button">MAX IDV : ₹ {{0.000| number : '1.3-3'}}</span>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Model popup -->
+
+    <ng-template class="bubble-top" #dialogTemplate>
+        <!-- <mat-card>
+            <mat-card-content> -->
+        <div class="modal-header">
+            <h6>Premium breakup</h6>
+            <!-- <button type="button" class="btn-close" mat-raised-button ></button> -->
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closedialog()"
+                aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <mat-card style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" appearance="outlined">
+                            <mat-card-content>
+                                <div class="card-header" style="background-color: #e95631;color: white;">
+                                    <h5 class="mb-0">Plan Details</h5>
+                                </div>
+                                <br>
+                                <h6 class="card-title">Basic Covers</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        Basic OD premium :
+                                    </div>
+                                    <div class="col fontSizes text-end">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Basic TP premium :
+                                    </div>
+                                    <div class="col fontSizes text-end">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <h6 class="card-title mt-2">Discount</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        NCB Discount :
+                                    </div>
+                                    <div class="col fontSizes text-end">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+
+                                </div>
+
+                                <h6 class="card-title mt-2">AddOn Cover</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{0| number : '1.3-3'}} :
+                                    </div>
+                                    <div class="col fontSizes text-end">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+
+                                </div>
+
+                                <h6 class="card-title mt-2">Tax</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        GST18% :
+                                    </div>
+                                    <div class="col fontSizes text-end">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="modal-footer">
+                                    <div class="col fontSizes" style="font-weight: bold;">
+                                        Total Premium :
+                                    </div>
+                                    <div class="col fontSizes text-end" style="font-weight: bold;">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <mat-card style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" appearance="outlined">
+                            <mat-card-content>
+                                <h6 class="card-title text-center">QuoteNo: <span> {{1233}} </span><span><i
+                                            type="button" class="fa fa-clipboard" aria-hidden="true"></i>
+                                    </span></h6>
+                                <div class="text-center">
+                                    <img width="50%" height="50%" src="/assets/GeneralInsurance/sbi-general.png"
+                                        class="img-fluid" alt="...">
+                                </div>
+                                <div class="col mt-2 text-center" style="color:#e95631">
+                                    <i class="fas fa-download"></i> Policy Wording
+                                </div>
+                                <div class="row mt-2 text-center">
+                                    <div class="col">
+                                        IDV :
+                                    </div>
+                                    <div class="col fontSizes">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        Min IDV :
+                                    </div>
+                                    <div class="col fontSizes">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        Max IDV :
+                                    </div>
+                                    <div class="col fontSizes">
+                                        ₹ {{0| number : '1.3-3'}}
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        Current NCB :
+                                    </div>
+                                    <div class="col fontSizes">
+                                        {{0| number : '1.3-3'}}%
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="modal-footer">
+                                    <div class="p-2">
+                                        <button mat-raised-button><i class="fas fa-shopping-cart"></i>
+                                            Buy Now</button>
+                                    </div>
+                                    <div class="p-2"><button mat-raised-button><i class="fas fa-download"></i>
+                                            Download</button>
+                                    </div>
+                                    <div class="p-2">
+                                        <button mat-raised-button><i class="fab fa-whatsapp"></i>
+                                            Whatspp</button>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="warn" (click)="closedialog()">Close</button>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+            <button >Close</button>
+        </div> -->
+        <!-- </mat-card-content>
+        </mat-card> -->
+
+    </ng-template>
+
+    <!-- End -->

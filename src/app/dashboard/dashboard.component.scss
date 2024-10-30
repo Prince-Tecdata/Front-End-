@@ -1,0 +1,62 @@
+// Added to Previous screen Model
+div{
+    font-family: 'Times New Roman', Times, serif;
+}
+mat-card{
+    // margin: 1%;
+    border:solid 1px #019ddd ;
+}
+
+.tile:hover {
+    box-shadow: 0 4px 21px #1e1b1b;
+}
+
+.tile {
+    box-shadow: 0 4px 21px #bdbdbd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #019ddd;
+    color: #000;
+    transform: translateY(700px);
+    opacity: 0;
+}
+
+.tile {
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 1.5s cubic-bezier(.075, .82, .165, 1);
+    background: #ffff;
+    margin-top: 28px;
+}
+
+.tile img {
+    max-width: 100%;
+    object-fit: contain;
+    animation: MoveUpDown 7s linear infinite;
+    padding: 26px;
+    padding-bottom: 0px;
+    opacity: .9;
+}
+
+.tile img:hover {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+.tile .info {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 85px;
+}
+
+mat-radio-button{
+    margin-left: 16px;
+}
+
+img:hover{
+    opacity:1.0;
+}

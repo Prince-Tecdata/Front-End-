@@ -1,0 +1,753 @@
+<!-- <app-navbar></app-navbar> -->
+<h1
+    style="text-align: center;color: #e95631;font-family:Robito;margin-top: 1%;font-weight: bold;text-transform: uppercase;">
+    {{Header}}</h1>
+
+<div class="Home">
+    <mat-card>
+        <mat-card-content>
+            <div class="Hide0" id="Hide0">
+                <h3 style="text-align: center;font-weight: bold;font-size: large;color: blue;">VEHICLE DETAIL</h3>
+                <form [formGroup]="CarDetailHdr" (ngSubmit)="SubmitForm()">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Customer Type<span style="color: red;"> *</span></label>
+                                <select (change)="Updatetype($event)" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['CustomerType'].errors }"
+                                    formControlName="CustomerType">
+                                    <option value="">--Select--</option>
+                                    <option value="INDIVIDUAL">INDIVIDUAL</option>
+                                    <option value="COMPANY">COMPANY</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['CustomerType'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['CustomerType'].errors['required']">Field Must Be Select the Customer
+                                        Type
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">{{CustomerType}}<span style="color: red;"> *</span></label>
+                                <input style="text-transform: uppercase;" type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['CustomerName'].errors }"
+                                    formControlName="CustomerName">
+                                <div *ngIf="submittedhdr && f['CustomerName'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['CustomerName'].errors['required']">Field Must Be Enter the
+                                        {{CustomerType}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Mobile No<span style="color: red;"> *</span></label>
+                                <input type="text" (keypress)="numberValidate($event)" class="form-control" list="PhoneNo"
+                                    [ngClass]="{ 'is-invalid': f['PhoneNo'].errors && f['PhoneNo'].touched  }"
+                                    formControlName="PhoneNo">
+                                <div *ngIf=" f['PhoneNo'].errors && f['PhoneNo'].touched" class="invalid-feedback">
+                                    <div *ngIf="f['PhoneNo'].errors['required']">Field Must Be Entered "Mobile No"</div>
+                                    <div *ngIf="f['PhoneNo'].errors['minlength']">Invalid Mobile No</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Email<span style="color: red;"> *</span></label>
+                                <input type="text" class="form-control" style="text-transform:lowercase;"
+                                    [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].errors }"
+                                    formControlName="email">
+                                <div *ngIf="f['email'].touched && f['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors['required']">Field Must Be Enter the Email</div>
+                                    <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'New Business'">
+                            <div class="mb-2">
+                                <label class="text">Policy Tenure<span style="color: red;"> *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Policy_Tenure'].errors }"
+                                    formControlName="Policy_Tenure">
+                                    <option value="">--Select--</option>
+                                    <!-- <option value="1 Year OD+3 Years TP">1 Year OD+3 Years TP</option> -->
+                                    <option *ngFor="let a of PolicyTenueList" [value]="a.Value">{{a.Name}}</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['Policy_Tenure'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Policy_Tenure'].errors['required']">Field Must Be Select the Policy
+                                        Tenure</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Registration Number<span style="color: red;"> *</span></label>
+                                <input (keypress)="AlphabeticOnly($event)" (input)="spacedefault($event)"
+                                    style="text-transform: uppercase;" type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['RegistationNo'].errors }"
+                                    formControlName="RegistationNo">
+                                <div *ngIf="submittedhdr && f['RegistationNo'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['RegistationNo'].errors['required']">Field Must Be Enter the Registration
+                                        Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Manufacturing Year<span style="color: red;"> *</span></label>
+                                <select (change)="UpdateDate($event)"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['ManufacturingYear'].errors }"
+                                    class="form-select" formControlName="ManufacturingYear">
+                                    <option value="">--Select--</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['ManufacturingYear'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['ManufacturingYear'].errors['required']">Field Must Be Select
+                                        Manufacturing Year
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Make<span style="color: red;"> *</span></label>
+                                <select [ngClass]="{ 'is-invalid': submittedhdr && f['Make'].errors }" class="form-select"
+                                    formControlName="Make">
+                                    <option disabled value="">--Select--</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['Make'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Make'].errors['required']">Field Must Be Select the Make </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Model<span style="color: red;"> *</span></label>
+                                <select [ngClass]="{ 'is-invalid': submittedhdr && f['Model'].errors }" class="form-select"
+                                    formControlName="Model">
+                                    <option disabled value="">--Select--</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['Model'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Model'].errors['required']">Field Must Be Select the Model </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Sub Model<span style="color: red;"> *</span></label>
+                                <select [ngClass]="{ 'is-invalid': submittedhdr && f['SubModel'].errors }"
+                                    class="form-select" formControlName="SubModel">
+                                    <option disabled value="">--Select--</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['SubModel'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['SubModel'].errors['required']">Field Must Be Select the SubModel </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Registation Date<span style="color: red;"> *</span></label>
+                                <input (change)="DateCheck($event)" [min]="MinDate" [max]="MaxDate" type="date"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['RegistrationDate'].errors }"
+                                    formControlName="RegistrationDate">
+                                <div *ngIf="submittedhdr && f['RegistrationDate'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['RegistrationDate'].errors['required']">Field Must Be Select
+                                        Registered Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Cubic Capacity<span style="color: red;"> *</span></label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['CubicCapacity'].errors }"
+                                    formControlName="CubicCapacity">
+                                <div *ngIf="submittedhdr && f['CubicCapacity'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['CubicCapacity'].errors['required']">Field Must Be Enter the Cubic
+                                        Capacity
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Seating Capacity<span style="color: red;"> *</span></label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Seating_Capacity'].errors }"
+                                    formControlName="Seating_Capacity">
+                                <div *ngIf="submittedhdr && f['Seating_Capacity'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Seating_Capacity'].errors['required']">Field Must Be Enter the Seating
+                                        Capacity
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Fuel Type<span style="color: red;"> *</span></label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Fuel_Type'].errors }"
+                                    formControlName="Fuel_Type">
+                                <div *ngIf="submittedhdr && f['Fuel_Type'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Fuel_Type'].errors['required']">Field Must Be Enter the Fuel Type
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">RTO Location<span style="color: red;"> *</span></label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Rto'].errors }" formControlName="Rto">
+                                <div *ngIf="submittedhdr && f['Rto'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Rto'].errors['required']">Field Must Be Enter the Rto
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Engine Number<span style="color: red;"> *</span></label>
+                                <input (keypress)="NumberLength($event)" type="text" class="form-control"
+                                    style="text-transform: uppercase;"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Engine_Number'].errors }"
+                                    formControlName="Engine_Number">
+                                <div *ngIf="submittedhdr && f['Engine_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Engine_Number'].errors['required']">Field Must Be Enter the Engine
+                                        Number </div>
+                                    <div *ngIf="!f['Engine_Number'].errors['maxLength']">Invalid Engine Number</div>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Chasis Number<span style="color: red;"> *</span></label>
+                                <input (keypress)="NumberLength($event)" type="text" class="form-control"
+                                    style="text-transform:uppercase;"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Chasis_Number'].errors }"
+                                    formControlName="Chasis_Number">
+                                <div *ngIf="submittedhdr && f['Chasis_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Chasis_Number'].errors['required']">Field Must Be Enter the Chasis
+                                        Number
+                                    </div>
+                                    <div *ngIf="!f['Chasis_Number'].errors['minLength']">Invalid Chasis Number</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-2">
+                                <label class="text">Previous Insurance Company Name<span style="color: red;">
+                                        *</span></label>
+                                <input type="text" class="form-control" style="text-transform:uppercase;"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Previous_Insurance_Company_Name'].errors }"
+                                    formControlName="Previous_Insurance_Company_Name">
+                                <div *ngIf="submittedhdr && f['Previous_Insurance_Company_Name'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['Previous_Insurance_Company_Name'].errors['required']">Field Must Be Enter
+                                        the Previous
+                                        Insurance Company Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-2">
+                                <label class="text">Previous Policy Number<span style="color: red;">
+                                        *</span></label>
+                                <input type="text" class="form-control" style="text-transform:uppercase;"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Previous_Policy_Number'].errors }"
+                                    formControlName="Previous_Policy_Number">
+                                <div *ngIf="submittedhdr && f['Previous_Policy_Number'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Previous_Policy_Number'].errors['required']">Field Must Be Enter the
+                                        Previous Policy Number
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-2">
+                                <label class="text">Previous Policy Type<span style="color: red;">
+                                        *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Previous_Policy_Type'].errors }"
+                                    formControlName="Previous_Policy_Type">
+                                    <option value="">--Select--</option>
+                                    <option value="SAOD">SAOD</option>
+                                    <option value="SATP">SATP</option>
+                                    <option value="COMPHRENSIVE">COMPHRENSIVE</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['Previous_Policy_Type'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Previous_Policy_Type'].errors['required']">Field Must Be Enter the
+                                        Previous Policy Type
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-2">
+                                <label class="text">Previous Policy Expiry Date<span style="color: red;">
+                                        *</span></label>
+                                <input type="date" class="form-control" style="text-transform:uppercase;"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Previous_Policy_Expiry_Date'].errors }"
+                                    formControlName="Previous_Policy_Expiry_Date">
+                                <div *ngIf="submittedhdr && f['Previous_Policy_Expiry_Date'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['Previous_Policy_Expiry_Date'].errors['required']">Field Must Be Enter the
+                                        Previous Policy Expiry Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Policy Start Date<span style="color: red;"> *</span></label>
+                                <input type="date" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Policy_Start_Date'].errors }"
+                                    formControlName="Policy_Start_Date">
+                                <div *ngIf="submittedhdr && f['Policy_Start_Date'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Policy_Start_Date'].errors['required']">Field Must Be Select
+                                        the Policy Start Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Policy End Date<span style="color: red;"> *</span></label>
+                                <input type="date" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['Policy_End_Date'].errors }"
+                                    formControlName="Policy_End_Date">
+                                <div *ngIf="submittedhdr && f['Policy_End_Date'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['Policy_End_Date'].errors['required']">Field Must Be Select
+                                        the Policy End Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'New Business'">
+                            <div class="mb-2">
+                                <label class="text">OD End Date<span style="color: red;"> *</span></label>
+                                <input type="date" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['OD_End_Date'].errors }"
+                                    formControlName="OD_End_Date">
+                                <div *ngIf="submittedhdr && f['OD_End_Date'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['OD_End_Date'].errors['required']">Field Must Be Select
+                                        the OD End Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'New Business'">
+                            <div class="mb-2">
+                                <label class="text">TP End Date<span style="color: red;"> *</span></label>
+                                <input type="date" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submittedhdr && f['TP_End_Date'].errors }"
+                                    formControlName="TP_End_Date">
+                                <div *ngIf="submittedhdr && f['TP_End_Date'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['TP_End_Date'].errors['required']">Field Must Be Select
+                                        the TP End Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-3">
+                                <mat-slide-toggle (change)="UpdateType()" class="Update" color="primary"
+                                    formControlName="Vehicle_Ownership">Vehicle
+                                    Ownership changed in the past
+                                    12 months?</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive'">
+                            <div class="mb-3">
+                                <mat-slide-toggle (change)="UpdateType()" class="Update" color="primary"
+                                    formControlName="any_claim_in_last_past_year">Was there any claim in last past
+                                    year</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="JobTitle === 'Comprehensive' && NCB === true">
+                            <div class="mb-2">
+                                <label class="text">Previous No Claim Bonus (NCB)<span style="color: red;">
+                                        *</span></label>
+                                <select class="form-select" [ngClass]="{ 'is-invalid': submittedhdr && f['NCB'].errors }"
+                                    formControlName="NCB">
+                                    <option value="">--Select--</option>
+                                    <option value="0">0</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="35">35</option>
+                                    <option value="45">45</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <div *ngIf="submittedhdr && f['NCB'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['NCB'].errors['required']">Field Must Be Select the
+                                        Previous No Claim Bonus (NCB)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top: 10px;">
+                        <span class="dot" style="background-color: green;"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" mat-raised-button color="primary">Next</button>
+                    </div>
+                </form>
+            </div>
+            <div class="Hide1" id="Hide1">
+    
+                <form [formGroup]="CarDetailAddOn" (ngSubmit)="CarDetailAddOnSubmit()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <h4 style="border-bottom: double;color: green;font-weight: bold;font-size: larger;">
+                                    Additional Covers :</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Electrical Accessories <span style="color: red;"> *</span></label>
+                                <input type="text" (keypress)="numberValidates($event)" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f1['Electrical_Accessories'].errors}"
+                                    formControlName="Electrical_Accessories" />
+                                <div *ngIf=" submitted && f1['Electrical_Accessories'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Electrical_Accessories'].errors['required']">Field Must Be Enter the
+                                        Electrical_Accessories Value
+                                    </div>
+                                    <div *ngIf="f1['Electrical_Accessories'].errors['min']">Field Must Be Enter the
+                                        Value Minimum 10,000 Only
+                                    </div>
+                                    <div *ngIf="f1['Electrical_Accessories'].errors['max']">Field Must Be Enter the
+                                        Value Maximum 50,000 Only
+                                    </div>
+                                </div>
+                                <div class="mb-2"></div>
+                                <div class="mb-3" style="color: blue;">
+                                    (Min: 10,000 To Max: 50,000)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Non Electrical Accessories<span style="color: red;">
+                                        *</span></label>
+                                <input type="text" (keypress)="numberValidates($event)" class="form-control"
+                                    [ngClass]="{'is-invalid': submitted && f1['Non_Electrical_Accessories'].errors}"
+                                    formControlName="Non_Electrical_Accessories" />
+                                <div *ngIf="submitted && f1['Non_Electrical_Accessories'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Non_Electrical_Accessories'].errors['required']">Field Must Be Enter
+                                        the
+                                        Non Electrical Accessories Value
+                                    </div>
+                                    <div *ngIf="f1['Non_Electrical_Accessories'].errors['min']">Field Must Be Enter the
+                                        Value Minimum 10,000 Only
+                                    </div>
+                                    <div *ngIf="f1['Non_Electrical_Accessories'].errors['max']">Field Must Be Enter the
+                                        Value Maximum 50,000 Only
+                                    </div>
+                                </div>
+                                <div class="mb-2"></div>
+                                <div class="mb-3" style="color: blue;">
+                                    (Min: 10,000 To Max: 50,000)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Bi Fuel Kit<span style="color: red;"> *</span></label>
+                                <input type="text" (keypress)="numberValidates($event)" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f1['Bi_Fuel_Kit'].errors }"
+                                    formControlName="Bi_Fuel_Kit" />
+                                <div *ngIf="submitted && f1['Bi_Fuel_Kit'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Bi_Fuel_Kit'].errors['required']">Field Must Be Enter the
+                                        Bi Fuel Kit
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.CustomerType === 'Customer Name'">
+                            <div class="mb-3">
+                                <mat-slide-toggle (change)="OpenPopup($event)" class="Update"
+                                    formControlName="Compulsory_Personal_Accident" color="primary">Compulsory Personal
+                                    Accident (Owner
+                                    Driver)</mat-slide-toggle>
+                                <div style="color:red" *ngIf="ReasonForCPA !== ''">{{ReasonForCPA}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle class="Update" color="primary"
+                                    formControlName="Legal_Liability_to_Paid_Driver">Legal Liability to Paid
+                                    Driver</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.CustomerType !== 'Customer Name'">
+                            <div class="mb-3">
+                                <mat-slide-toggle class="Update" color="primary"
+                                    formControlName="Legal_Liability_to_Paid_Employee">Legal Liability to Paid
+                                    Employee</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6" *ngIf="this.CustomerType !== 'Customer Name'">
+                            <div class="mb-2">
+                                <label class="text">P.A. Cover to Paid Driver<span style="color: red;">
+                                        *</span></label>
+                                <select class="form-select" [ngClass]="{ 'is-invalid': submitted && f1['PA_Cover'].errors }"
+                                    formControlName="PA_Cover">
+                                    <option value="">--Select--</option>
+                                    <option value="10000">10000</option>
+                                    <option value="20000">20000</option>
+                                    <option value="50000">50000</option>
+                                    <option value="100000">100000</option>
+                                    <option value="150000">150000</option>
+                                    <option value="200000">200000</option>
+                                </select>
+                                <div *ngIf="submitted && f1['PA_Cover'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['PA_Cover'].errors['required']">Field Must Be Select the
+                                        P.A. Cover to Paid Driver
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-2">
+                                <label class="text">Unnamed Passenger<span style="color: red;">
+                                        *</span></label>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted && f1['Unnamed_Passenger'].errors }"
+                                    formControlName="Unnamed_Passenger">
+                                    <option value="">--Select--</option>
+                                    <option value="10000">10,000</option>
+                                    <option value="20000">20,000</option>
+                                    <option value="50000">50,000</option>
+                                    <option value="100000">1,00,000</option>
+                                    <option value="150000">1,50,000</option>
+                                    <option value="200000">2,00,000</option>
+                                </select>
+                                <div *ngIf="submitted && f1['Unnamed_Passenger'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Unnamed_Passenger'].errors['required']">Field Must Be Select the
+                                        Unnamed Passenger
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <h4 style="border-bottom: double;color: green;font-weight: bold;font-size: larger;">Add-on
+                                    Covers :</h4>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Zero_Depreciation">Zero
+                                    Depreciation</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Roadside_Assistance">Roadside
+                                    Assistance</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Engine_Protection">Engine
+                                    Protection</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary"
+                                    formControlName="Consumables">Consumables</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Key_Cover">Key
+                                    Cover</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Tyre_Cover">Tyre
+                                    Cover</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="NCB_Protect">NCB
+                                    Protect</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Invoice_Cover">Invoice
+                                    Cover</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Daily_Allowance">Daily
+                                    Allowance</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Loss_of_Personal_Belonging">Loss of
+                                    Personal Belonging</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary"
+                                    formControlName="Emergency_Transport_Hotel_Expenses">Emergency
+                                    Transport & Hotel
+                                    Expenses</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Accident_Shield">Accident
+                                    Shield</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Hydrostatic_Lock">Hydrostatic
+                                    Lock</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Inconvenience_Allowance">Inconvenience
+                                    Allowance</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Mandatory_Deduction_Protect">Mandatory
+                                    Deduction
+                                    Protect </mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Passenger_Assistance">Passenger
+                                    Assistance</mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <h4 style="border-bottom: double;color: green;font-weight: bold;font-size: larger;">
+                                    Discounts :</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="mb-3">
+                                <mat-slide-toggle color="primary" formControlName="Anti_Theft_Discount">Anti-Theft
+                                    Discount
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-sm-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Voluntary Excess</span>
+                                <select class="form-select"
+                                    [ngClass]="{ 'is-invalid': submitted && f1['Voluntary_Excess'].errors }"
+                                    formControlName="Voluntary_Excess">
+                                    <option value="">--Select--</option>
+                                    <option value="2500">2,500</option>
+                                    <option value="5000">5,000</option>
+                                    <option value="7500">7,500</option>
+                                    <option value="15000">15,000</option>
+                                </select>
+                                <div *ngIf="submitted && f1['Voluntary_Excess'].errors" class="invalid-feedback">
+                                    <div *ngIf="f1['Voluntary_Excess'].errors['required']">Field Must Be Select the
+                                        Voluntary Excess
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align: center;">
+                            <div class="mb-1">
+                                <mat-checkbox id="agree" color="primary" style="font-weight: bold;"
+                                    (change)="UpdateData($event)" class="example-margin">Agree to terms and
+                                    conditions</mat-checkbox>
+                            </div>
+                        </div>
+                        <div id="hides" class="col-md-12" style="text-align: center;">
+                            <div class="mb-3">
+                                <span>You must agree before submitting.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align: center;">
+                            <div class="mb-1">
+                                <button type="submit" mat-raised-button color="primary">Calculate Premium</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top: 10px;">
+                        <span class="dot"></span>
+                        <span class="dot" style="background-color: green;"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" *ngIf="SelectedTab !== 0" (click)="PreviousTab()" style="margin-right: 1%;"
+                            mat-raised-button color="warn">Previous</button>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+<ng-template class="bubble-top" #dialogTemplate>
+
+    <div class="modal-header">
+        <h3>Reason for not selecting Compulsory Personal Accident(CPA) cover?</h3>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closedialog()"
+            aria-label="Close"></button> -->
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <select class="form-select" [(ngModel)]="ReasonForCPA" [ngModelOptions]="{standalone: true}">
+                        <option selected value="">--Select--</option>
+                        <option value="No Valid Driving License ">No Valid Driving License </option>
+                        <option value="Having other Motor Policy with CPA Cover">Having other Motor Policy with CPA
+                            Cover</option>
+                        <option value="Having Standalone CPA cover with SI>= 15 Lakhs">Having Standalone CPA cover with
+                            SI>= 15 Lakhs</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="margin-top: 3%;">
+        <button style="margin-right: 1%;" (click)="Proceed()" mat-raised-button color="warn">Proceed</button>
+        <button mat-raised-button color="primary" (click)="ModalboxClose()">Close</button>
+    </div>
+</ng-template>

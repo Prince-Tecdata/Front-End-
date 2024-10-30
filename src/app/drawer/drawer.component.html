@@ -1,0 +1,33 @@
+<div class="Home" >
+    <mat-toolbar class="mat-elevation-z8">
+        <button (click)="drawer.toggle()" mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <!-- <span >Motor Insurance</span> -->
+        <img src="/assets/common_img/vizza-logoNew.svg" height="50" alt="">
+        <span class="example-spacer"></span>
+        <button routerLink="" mat-button><mat-icon>home</mat-icon></button>
+        <button routerLink="" mat-button><mat-icon>power_settings_new</mat-icon></button>
+        <button (click)="badgevisibility()" mat-icon-button>
+            <mat-icon matBadgeColor="accent" matBadge="15" [matBadgeHidden]="badgevisible"
+                matBadgeSize="small">notifications</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-drawer-container  autosize style="height: 900px;">
+        <mat-drawer   #drawer [opened]="(isHandset$ | async) === false" mode="side" position="start">
+            <mat-nav-list>
+                <mat-list-item>
+                    <button routerLink="" mat-button><mat-icon>home</mat-icon> Home</button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button routerLink="dash" mat-button><mat-icon>dashboard</mat-icon> Dashboard</button>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-drawer>
+        <mat-drawer-content>
+            <div class="contents" style="height: 900px;padding: 1%;">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
